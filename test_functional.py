@@ -1,29 +1,19 @@
 """
-Tests the overall bot functionality.
+Tests the overall bot functionality for Simple to Chase interactions.
 """
 
+from chase_bot import ChaseBot
 import pytest
 from selenium import webdriver
 
 class TestSimpleChaseConnection():
     """Tests the interactions between Simple and Chase bank from Greg's point of view."""
 
-    @pytest.fixture
-    def fixture_chrome(self, request):
-        """
-        Sets up the chrome browser.
-        :param request: The pytest request object.
-        """
-        # Start PhantomJS browser.
-        self.browser = webdriver.PhantomJS()
+    def test_bot_can_get_to_chase_transaction_page(self, fixture_safari):
+        """Tests that a manually activated bot can get to the chase transaction page."""
+        chase_bot = ChaseBot()
 
-        def fin():
-            """Fixture finalizer."""
-            self.browser.quit()
+        chase_bot.go_to_transaction_page()
 
-        request.addfinalizer(fin)
-
-    #def test_homepage_visit(self, fixture_chrome):
-    #    """Test that the homepage loads."""
-    #    self.browser.get('http://localhost:8080')
-    #    assert 'Crowd Navigation' in self.browser.title
+        assert "Account Activity" in chase_bot.driver.title
+        assert "https://chaseonline.chase.com/MyAccounts.aspx" in chase_bot.driver.current_url
