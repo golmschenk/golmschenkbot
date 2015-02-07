@@ -3,6 +3,7 @@ Unit(ish) tests the gmail_bot module.
 """
 
 from ..gmail_bot import GmailBot
+import pytest
 
 class TestGmailBot:
     """
@@ -10,11 +11,20 @@ class TestGmailBot:
     """
 
     @pytest.fixture
-    def gmail_bot(self):
+    def gmail_bot(self, request):
         """
         Creates a GmailBot.
         """
-        return GmailBot()
+
+        gmail_bot = GmailBot()
+
+        def fin():
+            """Fixture finalizer."""
+            gmail_bot.browser.close()
+
+        request.addfinalizer(fin)
+
+        return gmail_bot
 
     def test_can_reach_inbox(self, gmail_bot):
         """

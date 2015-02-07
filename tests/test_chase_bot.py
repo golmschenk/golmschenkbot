@@ -9,11 +9,20 @@ class TestSimpleChaseConnection:
     """Tests the ChaseBot class."""
 
     @pytest.fixture
-    def chase_bot(self):
+    def chase_bot(self, request):
         """
         Creates a ChaseBot.
         """
-        return ChaseBot()
+
+        chase_bot = ChaseBot()
+
+        def fin():
+            """Fixture finalizer."""
+            chase_bot.browser.close()
+
+        request.addfinalizer(fin)
+
+        return chase_bot
 
     def test_bot_can_login(self, chase_bot):
         """Tests that a manually activated bot can get to the chase transaction page."""
