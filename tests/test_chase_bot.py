@@ -5,7 +5,7 @@ Tests the chase_bot module.
 from ..chase_bot import ChaseBot
 import pytest
 
-class TestSimpleChaseConnection():
+class TestSimpleChaseConnection:
     """Tests the ChaseBot class."""
 
     def test_bot_can_login(self):

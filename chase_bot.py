@@ -5,7 +5,10 @@ Module for bot to Chase interaction.
 from selenium import webdriver
 from secret import Secret
 
-class ChaseBot():
+class ChaseBot:
+    """
+    Bot class for Chase interactions.
+    """
 
     def __init__(self):
         self.browser = webdriver.Chrome()
