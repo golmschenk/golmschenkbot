@@ -29,3 +29,16 @@ class GmailBot:
         self.browser.find_element_by_id("signIn").click()
         # Wait for the asynchronous stuff to load.
         WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.ID, "gba")))
+
+    def open_first_email(self):
+        """
+        Opens the first email in gmail.
+        :return:
+        """
+        self.browser.find_element_by_xpath("//*[@id=\":2v\"]/div/div/div").click()
+        WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.ID, ":5h")))
+
+    def get_identification_code(self):
+        self.login()
+        self.open_first_email()
+        return self.extract_code()
