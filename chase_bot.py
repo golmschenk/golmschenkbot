@@ -22,7 +22,7 @@ class ChaseBot:
         self.browser.find_element_by_id("NextButton").click()
         self.browser.find_element_by_id("usrCtrlOtp_rdoDelMethod1").click()
         self.browser.find_element_by_id("NextButton").click()
-        code = GmailBot.get_identification_code()
+        code = GmailBot().get_identification_code()
         password_input = self.browser.find_element_by_id("usrCtrlOtp_txtActivationCode")
         password_input.send_keys(code)
         password_input = self.browser.find_element_by_id("usrCtrlOtp_txtPassword")
@@ -35,12 +35,17 @@ class ChaseBot:
         Goes to the transactions page.
         :return:
         """
-        self.browser.get("https://www.chase.com")
-        username_input = self.browser.find_element_by_id("usr_name_home")
+        self.browser.get("https://chaseonline.chase.com/")
+        username_input = self.browser.find_element_by_id("UserID")
         username_input.send_keys(Secret.chase_username)
-        password_input = self.browser.find_element_by_id("usr_password_home")
+        password_input = self.browser.find_element_by_id("Password")
         password_input.send_keys(Secret.chase_password)
-        self.browser.find_element_by_xpath("//a[@data-pt-name='unknwnlogin']").click()
+        self.browser.find_element_by_id('logon').click()
 
         if "Chase Online - Instructions" in self.browser.title:
             self.handle_unknown_computer()
+
+    def go_to_transaction_page(self):
+        self.browser.find_element_by_partial_link_text("See activity").click()
+
+

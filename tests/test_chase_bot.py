@@ -25,7 +25,7 @@ class TestSimpleChaseConnection:
         return chase_bot
 
     def test_bot_can_login(self, chase_bot):
-        """Tests that a manually activated bot can get to the chase transaction page."""
+        """Tests that a manually activated bot can login to Chase."""
         chase_bot.login()
 
         assert "Chase Online - My Accounts" in chase_bot.browser.title
@@ -33,6 +33,8 @@ class TestSimpleChaseConnection:
 
     def test_bot_can_get_to_chase_transaction_page(self, chase_bot):
         """Tests that a manually activated bot can get to the chase transaction page."""
+        chase_bot.login()
+
         chase_bot.go_to_transaction_page()
 
         assert "Account Activity" in chase_bot.browser.title
