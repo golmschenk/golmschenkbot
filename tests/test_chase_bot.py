@@ -38,4 +38,4 @@ class TestSimpleChaseConnection:
         chase_bot.go_to_transaction_page()
 
         assert "Account Activity" in chase_bot.browser.title
-        assert "https://chaseonline.chase.com/MyAccounts.aspx" in chase_bot.browser.current_url
+        assert "https://banking.chase.com/AccountActivity/AccountDetails.aspx" in chase_bot.browser.current_url

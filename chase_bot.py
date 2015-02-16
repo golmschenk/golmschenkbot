@@ -6,6 +6,10 @@ from selenium import webdriver
 from secret import Secret
 from gmail_bot import GmailBot
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 class ChaseBot:
     """
     Bot class for Chase interactions.
@@ -29,7 +33,6 @@ class ChaseBot:
         password_input.send_keys(Secret.chase_password)
         self.browser.find_element_by_id("NextButton").click()
 
-
     def login(self):
         """
         Goes to the transactions page.
@@ -42,10 +45,19 @@ class ChaseBot:
         password_input.send_keys(Secret.chase_password)
         self.browser.find_element_by_id('logon').click()
 
+        # Wait for either the account or unknown computer page to load.
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(EC.title_contains("Chase Online - My Accounts") or EC.title_contains("Chase Online - Instructions"))
+
         if "Chase Online - Instructions" in self.browser.title:
             self.handle_unknown_computer()
 
     def go_to_transaction_page(self):
+        """
+        Opens the transaction activity page from the user homepage.
+        """
         self.browser.find_element_by_partial_link_text("See activity").click()
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(EC.title_contains("Account Activity"))
 
 
