@@ -47,7 +47,7 @@ class ChaseBot:
 
         # Wait for either the account or unknown computer page to load.
         wait = WebDriverWait(self.browser, 10)
-        wait.until(EC.title_contains("Chase Online - My Accounts") or EC.title_contains("Chase Online - Instructions"))
+        wait.until(AnyEc(EC.title_contains("Chase Online - My Accounts"), EC.title_contains("Chase Online - Instructions")))
 
         if "Chase Online - Instructions" in self.browser.title:
             self.handle_unknown_computer()
@@ -61,3 +61,16 @@ class ChaseBot:
         wait.until(EC.title_contains("Account Activity"))
 
 
+class AnyEc:
+    """ Use with WebDriverWait to combine expected_conditions
+        in an OR.
+    """
+    def __init__(self, *args):
+        self.ecs = args
+
+    def __call__(self, driver):
+        for fn in self.ecs:
+            try:
+                if fn(driver): return True
+            except:
+                pass
