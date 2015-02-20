@@ -16,7 +16,7 @@ class ChaseBot:
     """
 
     def __init__(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Firefox()
 
     def handle_unknown_computer(self):
         """

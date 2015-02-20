@@ -6,6 +6,9 @@ from selenium import webdriver
 from secret import Secret
 import re
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 class GmailBot:
     """
@@ -33,6 +36,8 @@ class GmailBot:
         :return:
         """
         self.browser.find_element_by_xpath("//*[contains(text(), 'Your Requested Online Banking Identification Code')]").click()
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(EC.title_contains("Your Requested Online Banking Identification Code"))
 
     def extract_code(self):
         text_element = self.browser.find_element_by_class_name("msg")
