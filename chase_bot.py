@@ -35,7 +35,7 @@ class ChaseBot:
 
     def login(self):
         """
-        Goes to the transactions page.
+        Logs the user in.
         :return:
         """
         self.browser.get("https://chaseonline.chase.com/")
