@@ -57,7 +57,7 @@ class ChaseBot:
         """
         Opens the transaction activity page from the user homepage.
         """
-        self.browser.find_element_by_partial_link_text("See activity").click()
+        self.browser.find_elements_by_partial_link_text("See activity")[1].click()
         wait = WebDriverWait(self.browser, 10)
         wait.until(EC.title_contains("Account Activity"))
 
@@ -78,8 +78,8 @@ class ChaseBot:
         return transactions
 
 class AnyEc:
-    """ Use with WebDriverWait to combine expected_conditions
-        in an OR.
+    """
+    Use with WebDriverWait to combine expected_conditions in an OR.
     """
     def __init__(self, *args):
         self.ecs = args
@@ -87,6 +87,7 @@ class AnyEc:
     def __call__(self, driver):
         for fn in self.ecs:
             try:
-                if fn(driver): return True
+                if fn(driver):
+                    return True
             except:
                 pass
