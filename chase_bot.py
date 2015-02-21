@@ -60,6 +60,18 @@ class ChaseBot:
         wait = WebDriverWait(self.browser, 10)
         wait.until(EC.title_contains("Account Activity"))
 
+    def get_transactions(self):
+        transactions = []
+        pending_div = self.browser.find_element_by_id("Pending") # TODO - Check that it actually exists
+        pending_table = pending_div.find_element_by_class_name("card-activity")
+        pending_rows = pending_table.find_elements_by_class_name("summary")
+        for pending_row in pending_rows:
+            row_data = pending_row.find_elements_by_tag_name("td")
+            transaction = {"date": row_data[1].innerHTML,
+                           "description": row_data[4].get_element_by_tag_name("span").innerHTML,
+                           "amount": row_data[5].innerHTML}
+            transactions.append(transaction)
+        return transactions
 
 class AnyEc:
     """ Use with WebDriverWait to combine expected_conditions
