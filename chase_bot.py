@@ -73,9 +73,9 @@ class ChaseBot:
                                "description": row_data[4].get_element_by_tag_name("span").innerHTML,
                                "amount": row_data[5].innerHTML}
                 transactions.append(transaction)
-            return transactions
         except NoSuchElementException:
-            return False
+            pass
+        return transactions
 
 class AnyEc:
     """ Use with WebDriverWait to combine expected_conditions
