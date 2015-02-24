@@ -69,9 +69,9 @@ class ChaseBot:
             pending_rows = pending_table.find_elements_by_class_name("summary")
             for pending_row in pending_rows:
                 row_data = pending_row.find_elements_by_tag_name("td")
-                transaction = {"date": row_data[1].innerHTML,
-                               "description": row_data[4].get_element_by_tag_name("span").innerHTML,
-                               "amount": row_data[5].innerHTML}
+                transaction = {"date": row_data[1].get_attribute('innerHTML'),
+                               "description": row_data[4].find_elements_by_xpath(".//span")[0].get_attribute('innerHTML'),
+                               "amount": row_data[6].get_attribute('innerHTML')}
                 transactions.append(transaction)
         except NoSuchElementException:
             pass
@@ -91,3 +91,10 @@ class AnyEc:
                     return True
             except:
                 pass
+
+if __name__ == "__main__":
+    chase_bot = ChaseBot()
+    chase_bot.login()
+    chase_bot.go_to_transaction_page()
+    transactions = chase_bot.get_transactions()
+    print(transactions)
