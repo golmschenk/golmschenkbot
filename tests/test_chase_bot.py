@@ -4,6 +4,8 @@ Tests the chase_bot module.
 
 from ..chase_bot import ChaseBot
 import pytest
+from secret import Secret
+
 
 class TestSimpleChaseConnection:
     """Tests the ChaseBot class."""
@@ -38,4 +40,4 @@ class TestSimpleChaseConnection:
         chase_bot.go_to_transaction_page()
 
         assert "Account Activity" in chase_bot.browser.title
-        assert "https://banking.chase.com/AccountActivity/AccountDetails.aspx" in chase_bot.browser.current_url
+        assert "https://cards.chase.com/cc/Account/Activity/" + Secret.chase_account_number in chase_bot.browser.current_url
