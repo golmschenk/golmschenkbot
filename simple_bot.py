@@ -34,4 +34,7 @@ class SimpleBot:
         self.browser.find_element_by_xpath("//*[@data-account-id='" + Secret.simple_chase_data_account_id + "']").click()
         self.browser.find_element_by_class_name("outbound").click()
 
+    def schedule_transfer_of_amount(self, amount):
+        self.browser.find_element_by_xpath("//*[@name='amount']").send_keys(amount)
+        self.browser.find_element_by_xpath("//*[@title='Schedule this transfer']").click()
 
