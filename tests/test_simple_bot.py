@@ -30,3 +30,11 @@ class TestSimpleBot:
 
         assert "Activity | Simple" in simple_bot.browser.title
         assert "https://bank.simple.com/activity" in simple_bot.browser.current_url
+
+    def test_bot_can_get_to_transfer_page(self, simple_bot):
+        """Tests that a manually activated bot can get to the simple transaction page."""
+        simple_bot.login()
+
+        simple_bot.go_to_transfer()
+
+        assert simple_bot.browser.find_element_by_id("ExternalAccountTransferCreateOrEdit-renderTo").is_displayed()
